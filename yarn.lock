@@ -65,7 +65,7 @@
     "@aws-sdk/types" "3.226.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-dynamodb@^3.188.0", "@aws-sdk/client-dynamodb@^3.245.0":
+"@aws-sdk/client-dynamodb@^3.245.0":
   version "3.245.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.245.0.tgz#860846276a26930c65128310b753c7a17c653088"
   integrity sha512-k9zPoUXQ6o91iAIceaDyz1p1tXhA3gcmw4R0oB6gREDGc9bkIqBzwS6+Zu8m4B2PPhZQIl9uMpktHw9NPyMRxA==
@@ -1008,6 +1008,14 @@ dynamodb-toolbox@^0.6.4:
     deep-copy "^1.4.2"
     ts-toolbelt "^9.6.0"
 
+electrodb@^2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/electrodb/-/electrodb-2.3.5.tgz#cac4723e4ffd1280d49278ad63e0d2d2c5d24dfa"
+  integrity sha512-uj5TPUBcbt0D/J5FgeptMmMynx6L1gtXMkdWXWjlPN7mOq6gzQ/iHDdTTluS+UxszI9Yh03GsCXe1zVt63tx4g==
+  dependencies:
+    "@aws-sdk/lib-dynamodb" "^3.54.1"
+    jsonschema "1.2.7"
+
 esbuild@^0.16.3:
   version "0.16.17"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.16.17.tgz#fc2c3914c57ee750635fee71b89f615f25065259"
@@ -1177,6 +1185,11 @@ jsonc-parser@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.2.0.tgz#31ff3f4c2b9793f89c67212627c51c6394f88e76"
   integrity sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==
+
+jsonschema@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/jsonschema/-/jsonschema-1.2.7.tgz#4e6d6dc4d83dc80707055ba22c00ec6152c0e6e9"
+  integrity sha512-3dFMg9hmI9LdHag/BRIhMefCfbq1hicvYMy8YhZQorAdzOzWz7NjniSpn39yjpzUAMIWtGyyZuH2KNBloH7ZLw==
 
 local-pkg@^0.4.2:
   version "0.4.2"
