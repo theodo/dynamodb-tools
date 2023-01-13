@@ -17,17 +17,19 @@
   },
   "homepage": "https://github.com/theodo/dynamodb-tools#readme",
   "devDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.245.0",
     "@aws-sdk/util-dynamodb": "^3.245.0",
+    "@aws-sdk/client-dynamodb": "^3.245.0",
     "aws-sdk": "^2.1294.0",
     "dynamodb-onetable": "^2.5.1",
     "dynamodb-toolbox": "^0.6.4",
     "mockdate": "^3.0.5",
+    "prettier": "^2.8.2",
     "vite-tsconfig-paths": "^4.0.3",
     "vitest": "^0.27.1"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.245.0",
-    "electrodb": "^2.3.5"
+    "electrodb": "^2.3.5",
+    "dynamoose": "^3.1.0"
   }
 }
