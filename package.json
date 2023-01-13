@@ -1,0 +1,26 @@
+{
+  "name": "dynamodb-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theodo/dynamodb-tools.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theodo/dynamodb-tools/issues"
+  },
+  "homepage": "https://github.com/theodo/dynamodb-tools#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.1294.0",
+    "dynamodb-toolbox": "^0.6.4",
+    "mockdate": "^3.0.5",
+    "vite-tsconfig-paths": "^4.0.3",
+    "vitest": "^0.27.1"
+  }
+}
