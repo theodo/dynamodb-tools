@@ -13,18 +13,18 @@ const captureDate = "2021-01-01T00:00:00.000Z";
 const now = new Date().toISOString();
 MockDate.set(now);
 
+const pokemonInstance = {
+  pokemonInstanceId,
+  pokemonName,
+  level,
+  isLegendary,
+  pokemonMasterId,
+  captureDate,
+};
+
 describe("dynamodb-toolbox - put", () => {
   it("should put an item", () => {
-    expect(
-      PokemonInstanceEntity.putParams({
-        pokemonInstanceId,
-        pokemonName,
-        level,
-        isLegendary,
-        pokemonMasterId,
-        captureDate,
-      })
-    ).toStrictEqual({
+    expect(PokemonInstanceEntity.putParams(pokemonInstance)).toStrictEqual({
       Item: {
         _et: PokemonInstanceEntity.name,
         _ct: now,
@@ -40,6 +40,29 @@ describe("dynamodb-toolbox - put", () => {
         GSISK: captureDate,
       },
       TableName: table.name,
+    });
+  });
+
+  it("should add the correct condition (exists & capture date in past)", () => {
+    expect(
+      PokemonInstanceEntity.putParams(pokemonInstance, {
+        conditions: [
+          {
+            attr: "pokemonInstanceId",
+            exists: false,
+          },
+          { attr: "captureDate", lte: now },
+        ],
+      })
+    ).toMatchObject({
+      ConditionExpression: "attribute_not_exists(#attr1) AND #attr2 <= :attr2",
+      ExpressionAttributeNames: {
+        "#attr1": "SK",
+        "#attr2": "captureDate",
+      },
+      ExpressionAttributeValues: {
+        ":attr2": now,
+      },
     });
   });
 });
