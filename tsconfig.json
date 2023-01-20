@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "types": ["node", "vitest/globals"],
     "lib": ["es2020"],
+    "module": "CommonJS",
     "removeComments": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -18,7 +19,10 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["*"]
-    }
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]

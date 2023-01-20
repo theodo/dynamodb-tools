@@ -17,19 +17,20 @@
   },
   "homepage": "https://github.com/theodo/dynamodb-tools#readme",
   "devDependencies": {
-    "@aws-sdk/util-dynamodb": "^3.245.0",
     "@aws-sdk/client-dynamodb": "^3.245.0",
+    "@aws-sdk/util-dynamodb": "^3.245.0",
+    "@typedorm/common": "^1.15.3",
+    "@typedorm/core": "^1.15.3",
     "aws-sdk": "^2.1294.0",
+    "aws-sdk-client-mock": "^2.0.1",
     "dynamodb-onetable": "^2.5.1",
     "dynamodb-toolbox": "^0.6.4",
+    "dynamoose": "^3.1.0",
+    "electrodb": "^2.3.5",
     "mockdate": "^3.0.5",
     "prettier": "^2.8.2",
+    "reflect-metadata": "^0.1.13",
     "vite-tsconfig-paths": "^4.0.3",
     "vitest": "^0.27.1"
-  },
-  "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.245.0",
-    "electrodb": "^2.3.5",
-    "dynamoose": "^3.1.0"
   }
 }
