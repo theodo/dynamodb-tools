@@ -13,7 +13,10 @@ export const PokemonMaster = new Entity({
       // ✨ hidden feature
       hidden: true,
     },
-    pokemonMasterId: { type: "string", sortKey: true },
+    pokemonMasterId: {
+      type: "string",
+      sortKey: true,
+    },
   },
 } as const);
 
@@ -24,6 +27,7 @@ export const PokemonInstanceEntity = new Entity({
       type: "string",
       partitionKey: true,
       default: "PokemonInstance",
+      hidden: true,
     },
     pokemonInstanceId: {
       type: "string",
