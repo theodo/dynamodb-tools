@@ -9,7 +9,7 @@ const now = new Date().toISOString();
 MockDate.set(now);
 
 describe('dynamodb-toolbox - update', () => {
-  it('should update an item', () => {
+  it('updates a pokemon instance', () => {
     expect(
       PokemonInstanceEntity.updateParams({
         pokemonInstanceId,
@@ -64,7 +64,7 @@ describe('dynamodb-toolbox - update', () => {
     });
   });
 
-  it('should update an item (with indexation)', () => {
+  it('updates a pokemon instance (with indexation on GSI)', () => {
     expect(
       PokemonInstanceEntity.updateParams({
         pokemonInstanceId,
@@ -83,7 +83,7 @@ describe('dynamodb-toolbox - update', () => {
     });
   });
 
-  it('should add the correct condition (exists & capture date in past)', () => {
+  it('adds the correct condition (exists & capture date in past)', () => {
     expect(
       PokemonInstanceEntity.updateParams(
         { pokemonInstanceId, level: 34 },

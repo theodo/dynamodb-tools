@@ -23,7 +23,7 @@ const pokemonInstance = {
 };
 
 describe('dynamodb-toolbox - get', () => {
-  it('should get an item', () => {
+  it('gets a pokemon instance from its id', () => {
     expect(
       PokemonInstanceEntity.getParams({ pokemonInstanceId }),
     ).toStrictEqual({
@@ -35,7 +35,7 @@ describe('dynamodb-toolbox - get', () => {
     });
   });
 
-  it('should add the correct projection expression (exists & capture date in past)', () => {
+  it('retrieves only asked attributes', () => {
     expect(
       PokemonInstanceEntity.getParams(pokemonInstance, {
         attributes: ['pokemonName', 'level', 'isLegendary'],
