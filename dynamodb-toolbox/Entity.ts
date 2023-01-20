@@ -1,77 +1,77 @@
-import { Entity } from "dynamodb-toolbox";
+import { Entity } from 'dynamodb-toolbox';
 
-import { table } from "./Table";
+import { table } from './Table';
 
 export const PokemonMaster = new Entity({
-  name: "PokemonMaster",
+  name: 'PokemonMaster',
   attributes: {
     // ✨ Hard default
     entityType: {
-      type: "string",
+      type: 'string',
       partitionKey: true,
-      default: "PokemonMaster",
+      default: 'PokemonMaster',
       // ✨ hidden feature
       hidden: true,
     },
     pokemonMasterId: {
-      type: "string",
+      type: 'string',
       sortKey: true,
     },
   },
 } as const);
 
 export const PokemonInstanceEntity = new Entity({
-  name: "PokemonInstance",
+  name: 'PokemonInstance',
   attributes: {
     entityType: {
-      type: "string",
+      type: 'string',
       partitionKey: true,
-      default: "PokemonInstance",
+      default: 'PokemonInstance',
       hidden: true,
     },
     pokemonInstanceId: {
-      type: "string",
+      type: 'string',
       sortKey: true,
     },
 
     // ✨ string
-    pokemonName: { type: "string", required: true },
+    pokemonName: { type: 'string', required: true },
 
     // ✨ number
-    level: { type: "number", required: true },
+    level: { type: 'number', required: true },
 
     // ✨ boolean
-    isLegendary: { type: "boolean", required: true },
+    isLegendary: { type: 'boolean', required: true },
 
     // ✨ string set
-    types: { type: "set", setType: "string" },
+    types: { type: 'set', setType: 'string' },
 
     // ✨ list of strings (💥 impossible to set list elements types)
-    hobbies: { type: "list" },
+    hobbies: { type: 'list' },
 
     // ✨ map (💥 impossible to specify map attributes types)
-    _internalMetadata: { type: "map" },
+    _internalMetadata: { type: 'map' },
 
-    pokemonMasterId: { type: "string", required: true },
-    captureDate: { type: "string", required: true },
+    pokemonMasterId: { type: 'string', required: true },
+    captureDate: { type: 'string', required: true },
 
     // Mapped GSI
     byPokemonMasterId: {
-      type: "string",
-      map: "GSIPK",
+      type: 'string',
+      map: 'GSIPK',
       // prefix
-      prefix: "PokemonInstance#",
+      prefix: 'PokemonInstance#',
       // 💥 default input has to be typed
       default: ({ pokemonMasterId }: { pokemonMasterId: string }) =>
         pokemonMasterId,
       // 💥 dependencies have to be specified
-      dependsOn: ["pokemonMasterId"],
+      dependsOn: ['pokemonMasterId'],
     },
     byPokemonMasterIdSortKey: {
-      type: "string",
-      map: "GSISK",
+      type: 'string',
+      map: 'GSISK',
       default: ({ captureDate }: { captureDate: string }) => captureDate,
-      dependsOn: ["captureDate"],
+      dependsOn: ['captureDate'],
     },
   },
   table,

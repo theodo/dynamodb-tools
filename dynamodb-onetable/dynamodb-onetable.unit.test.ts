@@ -1,14 +1,14 @@
-import MockDate from "mockdate";
-import { marshall } from "@aws-sdk/util-dynamodb";
+import MockDate from 'mockdate';
+import { marshall } from '@aws-sdk/util-dynamodb';
 
-import { PokemonInstanceModel } from "./Entity";
+import { PokemonInstanceModel } from './Entity';
 
-const pokemonMasterId = "123";
-const pokemonInstanceId = "456";
-const pokemonName = "Pikachu";
+const pokemonMasterId = '123';
+const pokemonInstanceId = '456';
+const pokemonName = 'Pikachu';
 const level = 42;
 const isLegendary = false;
-const captureDate = "2021-01-01T00:00:00.000Z";
+const captureDate = '2021-01-01T00:00:00.000Z';
 
 const now = new Date().toISOString();
 MockDate.set(now);
@@ -22,14 +22,14 @@ const pokemonInstance = {
   captureDate,
 };
 
-const logMock = vi.spyOn(console, "log").mockImplementation(() => {});
+const logMock = vi.spyOn(console, 'log').mockImplementation(() => {});
 
-describe("dynamodb-toolbox - put", () => {
+describe('dynamodb-toolbox - put', () => {
   beforeEach(() => {
     logMock.mockClear();
   });
 
-  it("should put an item", () => {
+  it('should put an item', () => {
     PokemonInstanceModel.create(pokemonInstance, {
       execute: false,
       log: true,
@@ -42,19 +42,19 @@ describe("dynamodb-toolbox - put", () => {
 
     expect(command).toStrictEqual({
       ConditionExpression:
-        "(attribute_not_exists(#_0)) and (attribute_not_exists(#_1))",
+        '(attribute_not_exists(#_0)) and (attribute_not_exists(#_1))',
       ExpressionAttributeNames: {
-        "#_0": "PK",
-        "#_1": "SK",
+        '#_0': 'PK',
+        '#_1': 'SK',
       },
       Item: marshall({
         // ✨ entity name
-        _type: "PokemonInstance",
+        _type: 'PokemonInstance',
         // ✨ timestamps
         created: now,
         updated: now,
         // ✨ expected item
-        PK: "PokemonInstance",
+        PK: 'PokemonInstance',
         SK: pokemonInstanceId,
         pokemonName,
         level,
@@ -65,12 +65,12 @@ describe("dynamodb-toolbox - put", () => {
         GSIPK: `PokemonInstance#${pokemonMasterId}`,
         GSISK: captureDate,
       }),
-      ReturnValues: "NONE",
-      TableName: "PokemonsTable",
+      ReturnValues: 'NONE',
+      TableName: 'PokemonsTable',
     });
   });
 
-  it("should add the correct condition (exists & capture date in past)", () => {
+  it('should add the correct condition (exists & capture date in past)', () => {
     PokemonInstanceModel.create(pokemonInstance, {
       execute: false,
       log: true,
@@ -89,12 +89,12 @@ describe("dynamodb-toolbox - put", () => {
       ConditionExpression:
         '(attribute_not_exists(#_0)) and (attribute_not_exists(#_1)) and ((attribute_not_exists("PK")) and (#_2 <= :_0))',
       ExpressionAttributeNames: {
-        "#_0": "PK",
-        "#_1": "SK",
-        "#_2": "captureDate",
+        '#_0': 'PK',
+        '#_1': 'SK',
+        '#_2': 'captureDate',
       },
       ExpressionAttributeValues: {
-        ":_0": marshall(now),
+        ':_0': marshall(now),
       },
     });
   });
