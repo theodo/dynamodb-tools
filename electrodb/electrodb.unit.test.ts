@@ -1,6 +1,6 @@
 import MockDate from "mockdate";
 
-import { PokemonInstanceEntity, table, pokemonModel } from "./Entity";
+import { PokemonInstanceEntity, tableName, pokemonModel } from "./Entity";
 
 const pokemonMasterId = "123";
 const pokemonInstanceId = "456";
@@ -39,7 +39,7 @@ describe("electrodb - put", () => {
         GSIPK: `PokemonInstance#${pokemonMasterId}`.toLowerCase(),
         GSISK: captureDate.toLowerCase(),
       },
-      TableName: table,
+      TableName: tableName,
     });
   });
 

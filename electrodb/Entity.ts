@@ -4,7 +4,7 @@ import { Entity, EntityItem } from "electrodb";
 
 const client = new DynamoDB.DocumentClient();
 
-export const table = "PokemonsTable";
+export const tableName = "PokemonsTable";
 
 export const PokemonMasterEntity = new Entity(
   {
@@ -26,17 +26,17 @@ export const PokemonMasterEntity = new Entity(
     indexes: {
       byPokemonMasterId: {
         pk: {
-          field: "pk",
+          field: "PK",
           composite: ["entityType"],
         },
         sk: {
-          field: "sk",
+          field: "SK",
           composite: ["pokemonMasterId"],
         },
       },
     },
   },
-  { client, table }
+  { client, table: tableName }
 );
 
 export const pokemonModel = {
@@ -116,7 +116,7 @@ export const PokemonInstanceEntity = new Entity(
         },
       },
       byPokemonMasterId: {
-        index: "gsi1pk-gsi1sk-index",
+        index: "gsi",
         pk: {
           field: "GSIPK",
           template: "PokemonInstance#${pokemonMasterId}", // ⭐️ we can also add suffix here (or even midfix) if we want to
@@ -130,7 +130,7 @@ export const PokemonInstanceEntity = new Entity(
       },
     },
   },
-  { client, table }
+  { client, table: tableName }
 );
 
 type Item = EntityItem<typeof PokemonInstanceEntity>;
