@@ -1,45 +1,45 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { Dynamo } from "dynamodb-onetable/Dynamo";
-import { Table } from "dynamodb-onetable";
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { Dynamo } from 'dynamodb-onetable/Dynamo';
+import { Table } from 'dynamodb-onetable';
 
 const client = new Dynamo({ client: new DynamoDBClient({}) });
 
 export const table = new Table({
   client: client,
-  name: "PokemonsTable",
+  name: 'PokemonsTable',
   schema: {
-    format: "onetable:1.1.0",
-    version: "0.0.1",
+    format: 'onetable:1.1.0',
+    version: '0.0.1',
     indexes: {
-      primary: { hash: "PK", sort: "SK" },
-      gsi: { hash: "GSIPK", sort: "GSISK" },
+      primary: { hash: 'PK', sort: 'SK' },
+      gsi: { hash: 'GSIPK', sort: 'GSISK' },
     },
     models: {
       PokemonMaster: {
         entityType: {
           type: String,
           // ✨ Hard default
-          default: "PokemonMaster",
+          default: 'PokemonMaster',
           // ✨ Mapping
-          map: "PK",
+          map: 'PK',
           // ✨ hidden feature
           hidden: true,
         },
         pokemonMasterId: {
           type: String,
-          map: "SK",
+          map: 'SK',
         },
       },
       PokemonInstance: {
         entityType: {
           type: String,
-          default: "PokemonInstance",
-          map: "PK",
+          default: 'PokemonInstance',
+          map: 'PK',
           hidden: true,
         },
         pokemonInstanceId: {
           type: String,
-          map: "SK",
+          map: 'SK',
         },
 
         // ✨ string
@@ -71,14 +71,14 @@ export const table = new Table({
         // Mapped GSI
         byPokemonMasterId: {
           type: String,
-          map: "GSIPK",
+          map: 'GSIPK',
           // ✨ prefix OK-ish 💥 default is not typed
-          value: "PokemonInstance#${pokemonMasterId}",
+          value: 'PokemonInstance#${pokemonMasterId}',
         },
         byPokemonMasterIdSortKey: {
           type: String,
-          map: "GSISK",
-          value: "${captureDate}",
+          map: 'GSISK',
+          value: '${captureDate}',
         },
       },
     },

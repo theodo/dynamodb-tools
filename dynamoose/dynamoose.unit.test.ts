@@ -27,7 +27,7 @@ describe('dynamodb-toolbox - put', () => {
     const queryParams = await new PokemonInstanceEntity(pokemonInstance).save({
       return: 'request',
     });
-    
+
     expect(queryParams).toStrictEqual({
       Item: {
         ...marshall({
