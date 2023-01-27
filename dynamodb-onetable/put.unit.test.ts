@@ -24,12 +24,12 @@ const pokemonInstance = {
 
 const logMock = vi.spyOn(console, 'log').mockImplementation(() => {});
 
-describe('dynamodb-toolbox - put', () => {
+describe('dynamodb-onetable - put', () => {
   beforeEach(() => {
     logMock.mockClear();
   });
 
-  it('should put an item', () => {
+  it('puts a pokemon instance', () => {
     PokemonInstanceModel.create(pokemonInstance, {
       execute: false,
       log: true,
@@ -70,11 +70,12 @@ describe('dynamodb-toolbox - put', () => {
     });
   });
 
-  it('should add the correct condition (exists & capture date in past)', () => {
+  it('adds the correct conditions (exists & capture date in past)', () => {
     PokemonInstanceModel.create(pokemonInstance, {
       execute: false,
       log: true,
-      where: '(attribute_not_exists("PK")) and (${captureDate} <= @{now})',
+      where:
+        '(attribute_not_exists(${pokemonInstanceId})) and (${captureDate} <= @{now})',
       substitutions: {
         now,
       },
@@ -87,7 +88,7 @@ describe('dynamodb-toolbox - put', () => {
 
     expect(command).toMatchObject({
       ConditionExpression:
-        '(attribute_not_exists(#_0)) and (attribute_not_exists(#_1)) and ((attribute_not_exists("PK")) and (#_2 <= :_0))',
+        '(attribute_not_exists(#_0)) and (attribute_not_exists(#_1)) and ((attribute_not_exists(#_1)) and (#_2 <= :_0))',
       ExpressionAttributeNames: {
         '#_0': 'PK',
         '#_1': 'SK',
