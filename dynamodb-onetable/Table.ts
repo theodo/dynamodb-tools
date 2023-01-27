@@ -61,7 +61,7 @@ export const table = new Table({
         _internalMetadata: {
           type: Object,
           schema: {
-            _traceId: { type: String, required: true },
+            updatedAt: { type: String, required: true },
           },
         },
 

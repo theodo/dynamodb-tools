@@ -15,6 +15,7 @@ describe('electrodb - get', () => {
       TableName: tableName,
     });
   });
+
   it('should add the correct projection expression (exists & capture date in past)', () => {
     const command = PokemonInstanceEntity.get({
       entityType: 'PokemonInstance',
