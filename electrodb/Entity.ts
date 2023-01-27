@@ -72,11 +72,16 @@ export const PokemonInstanceEntity = new Entity(
       // ✨ boolean
       isLegendary: { type: 'boolean', required: true },
 
-      // ✨ string set
-      types: {
-        type: 'string',
-        items: ['FEU', 'EAU'] as const,
+      // ✨ enum
+      elementFamily: {
+        type: ['FEU', 'EAU'] as const,
       }, // ⭐️ we can pass enum here
+
+      // ✨ set
+      powers: {
+        type: 'set',
+        items: ['griffe-attaque', 'blizzard', 'morsure'] as const,
+      },
 
       // ✨ list of strings (⭐️ we can set list elements types) -- schema like
       hobbies: {
