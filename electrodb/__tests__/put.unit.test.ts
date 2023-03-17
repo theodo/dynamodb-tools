@@ -1,23 +1,50 @@
 import MockDate from 'mockdate';
 
-import { PokemonInstanceEntity, tableName } from '../Entity';
-import { pokemonInstance, testItem, __edb__ } from './fixtures';
+import { PokemonInstanceEntity, tableName, pokemonModel } from '../Entity';
 
 const now = new Date().toISOString();
 MockDate.set(now);
 
 describe('electrodb - put', () => {
   it('should put an item', () => {
-    const command = PokemonInstanceEntity.put(pokemonInstance);
+    const command = PokemonInstanceEntity.put({
+      pokemonMasterId: '123',
+      pokemonInstanceId: '456',
+      pokemonName: 'Pikachu',
+      level: 42,
+      isLegendary: false,
+      captureDate: '2021-01-01T00:00:00.000Z',
+    });
 
     expect(command.params()).toStrictEqual({
-      Item: testItem,
+      Item: {
+        __edb_e__: pokemonModel.entity,
+        __edb_v__: pokemonModel.version,
+        PK: '$pokemons#entitytype_pokemoninstance',
+        SK: '$pokemonmaster_1#pokemoninstanceid_456',
+        GSIPK: `PokemonInstance#123`.toLowerCase(),
+        GSISK: '2021-01-01T00:00:00.000Z'.toLowerCase(),
+        entityType: 'PokemonInstance',
+        pokemonInstanceId: '456',
+        pokemonName: 'Pikachu',
+        level: 42,
+        isLegendary: false,
+        pokemonMasterId: '123',
+        captureDate: '2021-01-01T00:00:00.000Z',
+      },
       TableName: tableName,
     });
   });
 
   it('should add the correct condition (exists & capture date in past)', () => {
-    const command = PokemonInstanceEntity.put(pokemonInstance).where(
+    const command = PokemonInstanceEntity.put({
+      pokemonMasterId: '123',
+      pokemonInstanceId: '456',
+      pokemonName: 'Pikachu',
+      level: 42,
+      isLegendary: false,
+      captureDate: '2021-01-01T00:00:00.000Z',
+    }).where(
       ({ pokemonInstanceId, captureDate }, { notExists, lte }) =>
         `${notExists(pokemonInstanceId)} AND ${lte(captureDate, now)}`,
     );
@@ -38,7 +65,12 @@ describe('electrodb - put', () => {
   // works with maps (map attributes are typed)
   it('should add the correct map _internalMetadata', () => {
     const command = PokemonInstanceEntity.put({
-      ...pokemonInstance,
+      pokemonMasterId: '123',
+      pokemonInstanceId: '456',
+      pokemonName: 'Pikachu',
+      level: 42,
+      isLegendary: false,
+      captureDate: '2021-01-01T00:00:00.000Z',
       _internalMetadata: {
         myNumberAttribute: 2,
         myStringAttribute: 'coucou',
@@ -58,14 +90,31 @@ describe('electrodb - put', () => {
   // works with enums
   it('should add the correct enum types attribute', () => {
     const command = PokemonInstanceEntity.put({
-      ...pokemonInstance,
+      pokemonMasterId: '123',
+      pokemonInstanceId: '456',
+      pokemonName: 'Pikachu',
+      level: 42,
+      isLegendary: false,
+      captureDate: '2021-01-01T00:00:00.000Z',
       elementFamily: 'EAU',
       powers: ['blizzard', 'morsure'],
     });
 
     expect(command.params()).toStrictEqual({
       Item: {
-        ...testItem,
+        __edb_e__: pokemonModel.entity,
+        __edb_v__: pokemonModel.version,
+        PK: '$pokemons#entitytype_pokemoninstance',
+        SK: '$pokemonmaster_1#pokemoninstanceid_456',
+        GSIPK: `PokemonInstance#123`.toLowerCase(),
+        GSISK: '2021-01-01T00:00:00.000Z'.toLowerCase(),
+        entityType: 'PokemonInstance',
+        pokemonMasterId: '123',
+        pokemonInstanceId: '456',
+        pokemonName: 'Pikachu',
+        level: 42,
+        isLegendary: false,
+        captureDate: '2021-01-01T00:00:00.000Z',
         elementFamily: 'EAU',
         powers: expect.objectContaining({ values: ['blizzard', 'morsure'] }),
       },

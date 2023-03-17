@@ -1,5 +1,4 @@
 import { PokemonInstanceEntity, tableName } from '../Entity';
-import { pokemonIndex, __edb__ } from './fixtures';
 
 describe('electrodb - get', () => {
   it('should get an item on the main index', () => {
@@ -10,7 +9,8 @@ describe('electrodb - get', () => {
 
     expect(command.params()).toStrictEqual({
       Key: {
-        ...pokemonIndex,
+        PK: '$pokemons#entitytype_pokemoninstance',
+        SK: '$pokemonmaster_1#pokemoninstanceid_456',
       },
       TableName: tableName,
     });
@@ -25,7 +25,10 @@ describe('electrodb - get', () => {
     expect(
       command.params({ attributes: ['pokemonName', 'level', 'isLegendary'] }),
     ).toStrictEqual({
-      Key: pokemonIndex,
+      Key: {
+        PK: '$pokemons#entitytype_pokemoninstance',
+        SK: '$pokemonmaster_1#pokemoninstanceid_456',
+      },
       ExpressionAttributeNames: {
         '#isLegendary': 'isLegendary',
         '#level': 'level',
