@@ -1,5 +1,6 @@
 import { marshall } from '@aws-sdk/util-dynamodb';
 import MockDate from 'mockdate';
+import dynamoose from 'dynamoose';
 
 import { PokemonInstanceEntity } from './Entity';
 
@@ -22,8 +23,8 @@ const pokemonInstance = {
   captureDate,
 };
 
-describe('dynamodb-toolbox - put', () => {
-  it.only('should put an item', async () => {
+describe('dynamoose - put', () => {
+  it('should put an item', async () => {
     const queryParams = await new PokemonInstanceEntity(pokemonInstance).save({
       return: 'request',
     });
@@ -41,6 +42,30 @@ describe('dynamodb-toolbox - put', () => {
         }),
       },
       TableName: 'PokemonMaster',
+    });
+  });
+
+  it('should add the correct condition (exists & capture date in past)', async () => {
+    const queryParams = await new PokemonInstanceEntity(pokemonInstance).save({
+      return: 'request',
+      condition: new dynamoose.Condition()
+        .where('pokemonInstanceId')
+        .not()
+        .exists()
+        .and()
+        .where('captureDate')
+        .lt(now),
+    });
+
+    expect(queryParams).toMatchObject({
+      ConditionExpression: 'attribute_not_exists (#a0) AND #a1 < :v1',
+      ExpressionAttributeNames: {
+        '#a0': 'SK',
+        '#a1': 'GSISK',
+      },
+      ExpressionAttributeValues: marshall({
+        ':v1': now,
+      }),
     });
   });
 });

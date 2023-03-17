@@ -35,6 +35,8 @@ describe('dynamodb-onetable - put', () => {
       log: true,
     });
 
+    PokemonInstanceModel.load;
+
     expect(logMock).toHaveBeenCalledTimes(1);
 
     // @ts-expect-error
